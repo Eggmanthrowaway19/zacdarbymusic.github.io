@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zac Darby — Composer & Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#3c4b33;
+    --header-bg:#e9c770;
+    --line:#eeeced;
+    --text:#000000;
+    --heading:#6f8d5e;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Instrument Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  a{color:inherit;}
+  :focus-visible{outline:2px solid var(--heading); outline-offset:3px;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(233,199,112,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:0.02em;
+    text-decoration:none;
+    color:var(--heading);
+  }
+  .navlinks{display:flex; gap:28px; list-style:none;}
+  .navlinks a{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    text-decoration:none;
+    color:var(--text);
+    transition:color 0.2s ease;
+  }
+  .navlinks a:hover{color:var(--heading);}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:120px 0 80px;
+    position:relative;
+    overflow:hidden;
+    background:var(--header-bg);
+    color:var(--text);
+  }
+  .eyebrow{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--heading);
+    margin-bottom:22px;
+    display:inline-block;
+  }
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(2.6rem, 7vw, 5.2rem);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    max-width:14ch;
+    color:var(--heading);
+  }
+  .hero-sub{
+    margin-top:26px;
+    max-width:46ch;
+    font-size:1.08rem;
+    color:var(--text);
+  }
+
+  /* melodic contour line */
+  .contour{
+    width:100%;
+    height:auto;
+    margin-top:56px;
+    display:block;
+  }
+  .contour path{
+    fill:none;
+    stroke:var(--line);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+    animation:draw 2.4s ease forwards 0.3s;
+  }
+  .contour circle{
+    opacity:0;
+    animation:appear 0.4s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes appear{ to{ opacity:1; } }
+
+  /* ---------- STAFF DIVIDER ---------- */
+  .staff{
+    position:relative;
+    height:46px;
+    margin:0 0;
+  }
+  .staff .wrap{height:100%; position:relative;}
+  .staff::before, .staff-line{
+    content:"";
+    position:absolute;
+    left:0; right:0;
+    border-top:1px solid var(--line);
+  }
+  .staff-lines{position:absolute; inset:0;}
+  .staff-lines span{
+    position:absolute; left:0; right:0;
+    height:1px;
+    background:var(--line);
+  }
+
+  section{padding:96px 0;}
+  section.tight{padding:64px 0;}
+  section.compact{padding:44px 0;}
+  .compact-text{
+    color:var(--text);
+    max-width:68ch;
+    font-size:0.95rem;
+  }
+
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:48px;
+  }
+  .index-no{
+    font-family:'Instrument Sans', sans-serif;
+    color:var(--heading);
+    font-size:0.85rem;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(1.7rem, 3.4vw, 2.4rem);
+    color:var(--heading);
+  }
+  .section-note{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.78rem;
+    color:var(--text);
+    margin-left:auto;
+    text-align:right;
+  }
+
+  /* ---------- TWO TRACKS ---------- */
+  .tracks{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .track{padding:40px 0;}
+  .track + .track{border-left:1px solid var(--line);}
+  .track .wrap-inner{padding:0 40px;}
+  .track-label{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--heading);
+    margin-bottom:28px;
+  }
+
+  .entry{
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .entry:last-child{border-bottom:none;}
+  .entry-title{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    font-weight:500;
+    margin-bottom:6px;
+    color:var(--heading);
+  }
+  .entry-meta{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.72rem;
+    color:var(--heading);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-bottom:10px;
+  }
+  .entry-desc{color:var(--text); font-size:0.95rem;}
+
+  @media (max-width:760px){
+    .tracks{grid-template-columns:1fr;}
+    .track + .track{border-left:none; border-top:1px solid var(--line);}
+  }
+
+  /* ---------- ENSEMBLES & ROLES ---------- */
+  .roles-list{
+    border-top:1px solid var(--line);
+  }
+  .role-row{
+    display:grid;
+    grid-template-columns:56px minmax(200px, 320px) 1fr;
+    align-items:baseline;
+    gap:24px;
+    padding:26px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .role-row:last-child{border-bottom:none;}
+  .role-num{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.78rem;
+    color:var(--line);
+  }
+  .role-title{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.15rem;
+    color:var(--heading);
+  }
+  .role-meta{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.7rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--heading);
+    grid-column:2;
+    margin-top:4px;
+  }
+  .role-desc{
+    grid-column:3;
+    grid-row:1 / span 2;
+    color:var(--text);
+    font-size:0.95rem;
+    align-self:start;
+  }
+
+  @media (max-width:640px){
+    .role-row{
+      grid-template-columns:1fr;
+      gap:6px;
+    }
+    .role-meta, .role-desc{grid-column:1;}
+    .role-num{margin-bottom:4px;}
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    gap:56px;
+    align-items:start;
+  }
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--text); margin-bottom:16px; max-width:56ch;}
+  .about-grid p:last-child{margin-bottom:0;}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px;}
+  .tag{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.7rem;
+    padding:6px 10px;
+    border:1px solid var(--line);
+    color:var(--heading);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    padding:80px 0 48px;
+    border-top:1px solid var(--line);
+    background:var(--header-bg);
+    color:var(--text);
+  }
+  .contact-title{
+    font-family:'Fraunces', serif;
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    font-weight:500;
+    margin-bottom:18px;
+    color:var(--heading);
+  }
+  .contact-links{display:flex; flex-wrap:wrap; gap:28px; margin-top:8px;}
+  .contact-links a{
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.85rem;
+    text-decoration:none;
+    color:var(--text);
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .contact-links a:hover{color:var(--heading);}
+  .foot-note{
+    margin-top:56px;
+    font-family:'Instrument Sans', sans-serif;
+    font-size:0.7rem;
+    color:var(--text);
+  }
+
+  /* fade-in on scroll */
+  .fade-up{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .fade-up.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand">Zac Darby</a>
+    <ul class="navlinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#ensembles">Ensembles</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Composer — Canberra</span>
+    <h1 class="title">Zac Darby</h1>
+    <p class="hero-sub">Composition student working toward mid-century jazz idioms, through-composed forms, motivic development and an exploration of mood/colours — alongside work outside the score.</p>
+
+    <svg class="contour" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,70 C60,20 100,100 160,60 C210,28 250,90 310,50 C370,14 410,96 470,58 C530,24 570,84 630,48 C690,16 730,92 790,54 C840,26 880,78 940,40 C965,26 985,50 1000,36" />
+      <circle cx="0" cy="70" r="4" fill="#c9962f" style="animation-delay:0.3s"/>
+      <circle cx="1000" cy="36" r="4" fill="#c9962f" style="animation-delay:2.6s"/>
+    </svg>
+  </div>
+</header>
+
+<div class="staff wrap">
+  <div class="staff-lines">
+    <span style="top:0;"></span>
+    <span style="top:11px;"></span>
+    <span style="top:22px;"></span>
+  </div>
+</div>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <span class="index-no">01</span>
+      <h2>Selected Work</h2>
+      <span class="section-note">five pieces,<br>read in either order</span>
+    </div>
+  </div>
+
+  <div class="tracks">
+    <div class="track">
+      <div class="wrap-inner">
+        <div class="entry fade-up">
+          <div class="entry-title">Covered in Gink</div>
+          <div class="entry-meta">13 July 2026</div>
+          <div class="entry-desc">A weird blend of jazz and pop-electronic elements used to portray the oddity of a witnessed food fight — all parts played and recorded in a bedroom as part of a production experiment.</div>
+        </div>
+
+        <div class="entry fade-up">
+          <div class="entry-title">Experiments with Sound #1</div>
+          <div class="entry-meta">24 April 2026</div>
+          <div class="entry-desc">A small suite of experiments conducted on performance mixers, acoustic instruments, and everyday industrial sounds.</div>
+        </div>
+
+        <div class="entry fade-up">
+          <div class="entry-title">Malaysian Meltdown</div>
+          <div class="entry-meta">13 January 2026</div>
+          <div class="entry-desc">This track was created using sounds recorded around Malaysia — a saxophone recorded in the jungle, paired with an electric keyboard.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track">
+      <div class="wrap-inner">
+        <div class="entry fade-up">
+          <div class="entry-title">Gnome Hunting</div>
+          <div class="entry-meta">19 September 2025</div>
+          <div class="entry-desc">My first experimentation with notation, opting for a middle section of the composition to be written entirely in shapes and colours.</div>
+        </div>
+
+        <div class="entry fade-up">
+          <div class="entry-title">Cooyong St.</div>
+          <div class="entry-meta">1 July 2025</div>
+          <div class="entry-desc">A piece created to illustrate the timings of everyday objects around us, specifically relating to urbanism — Cooyong St. is a composition timed to the changes of a traffic light.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="staff wrap">
+  <div class="staff-lines">
+    <span style="top:0;"></span>
+    <span style="top:11px;"></span>
+    <span style="top:22px;"></span>
+  </div>
+</div>
+
+<section id="ensembles" class="tight">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <span class="index-no">02</span>
+      <h2>Ensembles & Roles</h2>
+      <span class="section-note">performing &<br>directing</span>
+    </div>
+
+    <div class="roles-list">
+      <div class="role-row fade-up">
+        <div class="role-num">01</div>
+        <div class="role-title">The Outbound Orkestra</div>
+        <div class="role-meta">Saxophonist</div>
+        <div class="role-desc">Co-led by Micah Knight and Connor Moloney, Outbound is a group of six young Canberran musicians looking to expand the Canberra sound.</div>
+      </div>
+
+      <div class="role-row fade-up">
+        <div class="role-num">02</div>
+        <div class="role-title">The 4 of Us</div>
+        <div class="role-meta">Saxophonist</div>
+        <div class="role-desc">Four housemates who started more than a band — a studio, The Henge, a house in Canberra's south that brings opportunity to aspiring artists.</div>
+      </div>
+
+      <div class="role-row fade-up">
+        <div class="role-num">03</div>
+        <div class="role-title">WINONA</div>
+        <div class="role-meta">Saxophonist</div>
+        <div class="role-desc">'winonahatesyou', an avant-garde punk group born in the heart of Canberra.</div>
+      </div>
+
+      <div class="role-row fade-up">
+        <div class="role-num">04</div>
+        <div class="role-title">DJ Patty P & Zdarbs</div>
+        <div class="role-meta">Saxophonist</div>
+        <div class="role-desc">An electronic sax, DJ duo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="staff wrap">
+  <div class="staff-lines">
+    <span style="top:0;"></span>
+    <span style="top:11px;"></span>
+    <span style="top:22px;"></span>
+  </div>
+</div>
+
+<section id="brilliant-circles" class="compact">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <span class="index-no">03</span>
+      <h2>BrilliantCircles</h2>
+      <span class="section-note">Project Manager</span>
+    </div>
+    <div class="fade-up">
+      <p class="compact-text">brilliant circles produktions ... here you are to find some of the rawest, unfiltered, and perhaps purest music available on the world wide web. we are a co-curating label / collective of musicians dead set on collaboration, experimentation and interaction, along with deep introspection, spiritual revelation, love, peace and protest thru music. we are based out of canberra, the bush capital, and hone our musical offerings with great care.</p>
+    </div>
+  </div>
+</section>
+
+<div class="staff wrap">
+  <div class="staff-lines">
+    <span style="top:0;"></span>
+    <span style="top:11px;"></span>
+    <span style="top:22px;"></span>
+  </div>
+</div>
+
+<section id="about" class="tight">
+  <div class="wrap">
+    <div class="section-head fade-up">
+      <span class="index-no">04</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="fade-up">
+        <p>Currently studying a Bachelor of Music at ANU, majoring in Composition.</p>
+      </div>
+      <div class="fade-up">
+        <p>My compositional interest sits mainly in mid-20th century jazz — I'm drawn to the harmonic language of Monk and the voicing sensibility of Ellington, and I'm working through genre-specific tools like odd-bar extensions, through-composed form, and the false return.</p>
+        <p>Outside the score, this is where the rest of what I make lives...</p>
+        <div class="tag-row">
+          <span class="tag">Composition</span>
+          <span class="tag">Jazz Harmony</span>
+          <span class="tag">Through-composed Form</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="fade-up">
+      <div class="contact-title">Let's talk.</div>
+      <p style="color:var(--text); max-width:44ch;">Open to hearing from anyone interested in the music, the other work, or both.</p>
+      <div class="contact-links">
+        <a href="mailto:zacdarby@gmail.com">zacdarby@gmail.com</a>
+        <a href="https://instagram.com/zac.darby" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://on.soundcloud.com/qwpTPOTJY2pMze5p2L" target="_blank" rel="noopener">SoundCloud</a>
+        <a href="https://zacdarbymusic.bandcamp.com/community" target="_blank" rel="noopener">Bandcamp</a>
+      </div>
+    </div>
+    <div class="foot-note">Zac Darby — Canberra, Australia</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
